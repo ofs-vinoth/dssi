@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_25">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/salesforce.jar"/>
+	<classpathentry kind="lib" path="C:/Users/vinothn/.m2/repository/net/jmatrix/jmutils/1.0.5/jmutils-1.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/vinothn/.m2/repository/net/jmatrix/jproperties/1.0.5/jproperties-1.0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/vinothn/.m2/repository/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/vinothn/.m2/repository/org/springframework/security/spring-security-core/4.0.3.RELEASE/spring-security-core-4.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/vinothn/.m2/repository/org/springframework/security/spring-security-web/4.0.3.RELEASE/spring-security-web-4.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/vinothn/.m2/repository/org/springframework/security/spring-security-config/4.0.3.RELEASE/spring-security-config-4.0.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/vinothn/.m2/repository/com/sun/jersey/jersey-client/1.19/jersey-client-1.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/vinothn/.m2/repository/com/sun/jersey/contribs/jersey-apache-client/1.19/jersey-apache-client-1.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/vinothn/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

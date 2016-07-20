@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-4.0.xsd">	
+	<context:annotation-config/>
+	<context:component-scan base-package="com.thecdmgroup.driiverseatservice"></context:component-scan>
+	
+	<!-- ************************** Spring Security ********************************** -->
+	
+	<bean id="driverSeatAuthProvider" class="com.thecdmgroup.driiverseatservice.security.DriiverSeatAuthenticationProvider">
+	</bean>
+	
+	<sec:global-method-security jsr250-annotations="enabled" />
+	
+	<sec:authentication-manager alias="authenticationManager">
+	  	<sec:authentication-provider ref="driverSeatAuthProvider"/>
+	</sec:authentication-manager>
+	
+	
+	<bean id="basicAuthenticationFilter"
+	 	 class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
+	 	 <constructor-arg ref="authenticationManager"/>
+	 	 <constructor-arg ref="authenticationEntryPoint"/>
+	</bean>
+	
+	<bean id="authenticationEntryPoint"
+	  	class="com.thecdmgroup.driiverseatservice.security.RestAuthenticationEntryPoint">
+	  	<property name="realmName" value="thecdmgroup.com"/>
+	</bean>
+	
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass"
+                  value="org.springframework.security.core.context.SecurityContextHolder"/>
+        <property name="targetMethod" value="setStrategyName"/>
+        <property name="arguments" value="MODE_INHERITABLETHREADLOCAL"/>
+    </bean>
+	
+	<!-- ************************** End Spring Security ********************************** -->
+	
+	<bean id="simpleLogger" class="com.thecdmgroup.driiverseatservice.util.Logging"/>
+	
+	<bean id="userServiceImpl" class="com.thecdmgroup.driiverseatservice.serviceimpl.UserServiceImpl" autowire="byType"/>
+	
+	<bean id="analyticServiceImpl" class="com.thecdmgroup.driiverseatservice.serviceimpl.AnalyticServiceImpl" autowire="byType"/>
+	
+	<bean id="veevaiDetailServiceImpl" class="com.thecdmgroup.driiverseatservice.serviceimpl.VeevaiDetailServiceImpl" autowire="byType"/>
+   	
+	<aop:config>
+    	<aop:aspect id="loggingAspect" ref="simpleLogger">
+			<aop:pointcut id="logPointCut" expression="execution(* com.thecdmgroup.driiverseatservice.service..*.*(..))"/>
+			<aop:before pointcut-ref="logPointCut" method="beforeAdvice"/>
+			<aop:after pointcut-ref="logPointCut" method="afterAdvice"/>
+			<aop:after-returning pointcut-ref="logPointCut" 
+                              returning="retVal"
+                              method="afterReturningAdvice"/>
+			<aop:after-throwing pointcut-ref="logPointCut" 
+                             throwing="ex"
+                             method="AfterThrowingAdvice"/>
+			
+        </aop:aspect>
+   	</aop:config>
+   	
+   	<bean id="salesforceProxy" class="com.thecdmgroup.driiverseatservice.transport.jaxws.SalesforceProxyImpl"/>
+   
+  	<bean id="driverSeatRESTDelegator" class="com.thecdmgroup.driiverseatservice.rest.util.RESTDelegator"/>
+	    
+    <bean id="driverSeatValidator" class="com.thecdmgroup.driiverseatservice.util.DriverSeatValidator"/>
+    <bean id="httpClientUtil" class="com.thecdmgroup.driiverseatservice.util.HttpClientUtil"/>
+	
+	<util:properties id="myproperties" location="classpath:../driiverseat.properties" />
+	
+	<bean id="driverSeatProperty" class="com.thecdmgroup.driiverseatservice.util.PropertyUtil">
+		<constructor-arg ref="myproperties"/>
+	</bean>
+
+</beans>
